@@ -1,0 +1,10 @@
+{% autoescape off %}
+
+welcome to hillary login
+
+Hello {{name}}
+
+please confirm your email by clicking this link,
+
+confirmation link : http://{{domain}}{% url 'activation' uid64=uid token=token %}
+{% endautoescape  %}

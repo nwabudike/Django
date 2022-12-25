@@ -1,0 +1,16 @@
+{% extends 'blog_apps/base.html' %}
+{% block content %}
+
+<h1>Add post</h1>
+<form method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+<button>Add</button>
+
+</form>
+
+<script>
+    var name = {{user.id}};
+    document.getElementById('author').value = name;
+</script>
+{% endblock %}

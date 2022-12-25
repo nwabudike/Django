@@ -1,0 +1,14 @@
+{% extends 'blog_apps/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+<h1>Edit post</h1>
+<form method="POST">
+{% csrf_token %}
+{{ form.as_p }}
+<button>update</button>
+
+</form>
+{% else%}
+<h2><a href="{% url 'login' %}">Login</a></h2>
+{% endif %}
+{% endblock %}

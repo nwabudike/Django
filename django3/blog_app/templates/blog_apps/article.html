@@ -1,0 +1,54 @@
+{% extends 'blog_apps/base.html' %}
+{% block content %}
+<h1>{{object.title}}</h1>
+{{object.post_date}}
+{% if user.is_authenticated %}
+{% if user.id == object.author.id %}
+<a href="{% url 'editpost' object.pk %}">Edit</a> <a href="{% url 'deletepost' object.pk %}">delete</a>
+{% endif %}
+{% endif %}
+<br>
+author: {{object.author}}
+<br>
+<br>
+{{object.body|safe}}
+<br>
+<a href="{% url 'home' %}">back</a>
+<br>
+{% if user.is_authenticated %}
+<form action="{% url 'likes' object.pk %}" method="POST">
+{% csrf_token %}
+    {% if liked %}
+    <button type="submit" name="post_id" value="{{object.id}}">Unlike</button> - {{total_likes}} likes
+    {% else %}
+    <button type="submit" name="post_id" value="{{object.id}}">Like</button> - {{total_likes}} likes
+    {% endif %}
+
+</form>
+{% else %}
+<a href="{% url 'login' %}">Login</a> to like post
+
+{% endif %}
+<br>
+<br>
+<h2>Comments....</h2>
+
+{% if not post.comments.all %}
+no comment yet....
+<br>
+<a href="{% url 'addcomment' object.pk %}">add comment</a>
+{% else %}
+<a href="{% url 'addcomment' object.pk %}">add comment</a>
+<br>
+{% for comment in post.comments.all %}
+{{comment.name}}-{{comment.date_added}}
+<br>
+{{comment.body}}
+
+{% endfor %}
+
+{% endif %}
+
+
+
+{% endblock %}

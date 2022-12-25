@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room</title>
+</head>
+<body>
+<h1>{{room_name}}-{{username}}</h1>
+
+<div id="display">
+
+ <div class="container darker">
+<!--  <b>Destiny</b><p>Hello Everyone, How Are You Guys Doing?</p>-->
+<!--  <span class="time-left">20th, April 2021</span>-->
+</div>
+
+</div>
+
+<script>
+$(document).ready(function(){
+
+setInterval(function(){
+    $.ajax({
+        type: 'GET',
+        url : "/getMessages/{{room_name}}/",
+        success: function(response){
+            console.log(response);
+            $("#display").empty();
+            for (var key in response.messages)
+            {
+                var temp="<div class='container darker'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span class='time-left'>"+response.messages[key].date+"</span></div>";
+                $("#display").append(temp);
+            }
+        },
+        error: function(response){
+            // alert('An error occurred')
+        }
+    });
+},1000);
+})
+</script>
+
+
+<form action="send" method="POST">
+    {% csrf_token %}
+<!--<input type="hidden" id="room" name="room" value='{{room_name}}'/>-->
+<input type="hidden" id="username" name="username" value='{{username}}'/>
+<input type="hidden" id="room_id" name="room_id" value='{{room_details.id}}'/>
+<input type="text" id="messages" name="messages"/>
+<br>
+<br>
+<br>
+<button type="submit" >send message</button>
+
+
+</form>
+</body>
+</html>

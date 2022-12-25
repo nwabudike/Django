@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Room creation</title>
+</head>
+<body>
+<form action="create_room" method="POST">
+    {% csrf_token %}
+    <label ><h1>Room Name</h1></label>
+    <br>
+    <input type="text" id="room_name" name="room_name" placeholder="Enter room name">
+    <label ><h1>Username</h1></label>
+    <br>
+    <input type="text" id="username" name="username" placeholder="Enter username">
+    <br>
+    <br>
+    <br>
+    <button type="submit" >Start chat</button>
+
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'blog_apps/base.html' %}
+{% block content %}
+{% if post_under_this %}
+<h1>{{name}} category</h1>
+<ul>
+{% for object in post_under_this %}
+    <li><a href="{% url 'article' object.pk %}">{{object.title}}</a> - {{object.author}}><br>
+
+    {{object.body|slice:':100'|safe}}
+</li>
+{% endfor %}
+</ul>
+{% else %}
+<h2>this category does not exit</h2>
+<a href="{% url 'home' %}">back</a>
+
+{% endif %}
+{% endblock %}
